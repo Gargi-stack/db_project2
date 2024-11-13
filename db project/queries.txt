@@ -1,0 +1,47 @@
+creating the users table
+CREATE TABLE `transport`.`user` ( `user_id` INT NOT NULL AUTO_INCREMENT ,  `username` VARCHAR(100) NOT NULL ,  `email` TEXT NOT NULL ,  `password` VARCHAR(100) NOT NULL ,  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,    PRIMARY KEY  (`user_id`)) ENGINE = InnoDB;
+
+inserting into user table a test user
+INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `created_at`) VALUES ('1', 'testuser', 'testuser@example.com', '1234', current_timestamp());
+
+creating the vehicles table
+CREATE TABLE vehicles (
+    vehicle_id INT AUTO_INCREMENT PRIMARY KEY,  -- Vehicle ID (Primary Key, Auto Increment)
+    vehicle_type ENUM('Car', 'SUV', 'Truck', 'Van', 'Motorcycle') NOT NULL,  -- Vehicle type
+    make VARCHAR(100) NOT NULL,  -- Vehicle make (e.g., Toyota, Honda)
+    model VARCHAR(100) NOT NULL,  -- Vehicle model (e.g., Corolla, CR-V)
+    capacity INT NOT NULL,  -- Vehicle capacity (e.g., number of seats or load capacity)
+    capacity_type ENUM('Seats', 'Load') NOT NULL,  -- Type of capacity (Seats or Load)
+    general_info TEXT,  -- Additional general information about the vehicle
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Automatically set timestamp when record is created
+);
+
+creating the drivers table
+CREATE TABLE drivers (
+    driver_id INT AUTO_INCREMENT PRIMARY KEY,      -- Driver ID (Primary Key, Auto Increment)
+    first_name VARCHAR(100) NOT NULL,               -- Driver's first name
+    last_name VARCHAR(100) NOT NULL,                -- Driver's last name
+    email VARCHAR(255) UNIQUE NOT NULL,             -- Driver's email (unique)
+    phone_number VARCHAR(20),                       -- Driver's phone number
+    date_of_birth DATE,                             -- Driver's date of birth
+    license_number VARCHAR(100) NOT NULL,           -- Driver's license number
+    license_expiry DATE,                           -- Driver's license expiry date
+    address TEXT,                                   -- Driver's home address
+    hire_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Driver's hire date (timestamp when the driver is added)
+    status ENUM('Active', 'Inactive', 'Suspended') DEFAULT 'Active' -- Driver's status
+);
+
+inserting into vehicles table
+INSERT INTO `vehicles`(`vehicle_type`, `make`, `model`, `capacity`, `capacity_type`, `general_info`) VALUES ('car','toyota','Corolla','5','seats','compact sedan,2019 model,excellent fuel economy')
+INSERT INTO `vehicles`(`vehicle_type`, `make`, `model`, `capacity`, `capacity_type`, `general_info`) VALUES ('SUV','HOnda','CR-V','5','seats','All wheel drive,2021 model')
+INSERT INTO `vehicles`(`vehicle_type`, `make`, `model`, `capacity`, `capacity_type`, `general_info`) VALUES ('Van','Chrysler','Pacifica','7','seats','family van,2020 model,leather seats')
+INSERT INTO `vehicles`(`vehicle_type`, `make`, `model`, `capacity`, `capacity_type`, `general_info`) VALUES ('Motorcycle','Harley-Davidson','Iron 883','2','seats','Cruiser motorcycle,2021 model')
+
+inserting into drivers table
+INSERT INTO `drivers`( `first_name`, `last_name`, `email`, `phone_number`, `date_of_birth`, `license_number`, `license_expiry`, `address`, `status`) VALUES ('John','Doe','johndoe2example.com',8965785964,1985-08-15,'D1234567',2025-08-15,'Vasco,Goa','active');
+INSERT INTO `drivers`( `first_name`, `last_name`, `email`, `phone_number`, `date_of_birth`, `license_number`, `license_expiry`, `address`, `status`) VALUES ('Jane','Smith','janesmithexample.com',7584587455,1990-04-22,'S7654321',2026-04-22,'Porvorim,Goa','active')
+INSERT INTO `drivers`( `first_name`, `last_name`, `email`, `phone_number`, `date_of_birth`, `license_number`, `license_expiry`, `address`, `status`) VALUES ('Sham','Bahadur','shamb@example.com',8574968956,1978-11-03,'J2345678',2024-11-03,'Margao,Goa','Inactive')
+INSERT INTO `drivers`( `first_name`, `last_name`, `email`, `phone_number`, `date_of_birth`, `license_number`, `license_expiry`, `address`, `status`) VALUES ('Bobby','Deol','bobd@example.com',9856785964,1982-01-12,'B3456789',2023-01-12,'Vasco,Goa','Suspended')
+
+creating bookings table
+CREATE TABLE bookings ( booking_id INT AUTO_INCREMENT PRIMARY KEY, -- booking_id as primary key with auto increment user_id INT, -- user_id as foreign key car_type VARCHAR(50), -- car_type field car_model VARCHAR(100), -- car_model field booking_date DATE, -- booking_date field booking_time TIME, -- booking_time as current timestamp duration INT, -- duration field (in hours) FOREIGN KEY (user_id) REFERENCES users(user_id) -- foreign key constraint referencing the users table )
